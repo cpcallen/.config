@@ -40,7 +40,6 @@ function interactive () {
 ######################################################################
 # PATH setup (may be overridden by .site-bashrc):
 OLD_PATH="$PATH"			# Not exported
-#export PATH=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games
 
 ######################################################################
 # Local setup:
@@ -89,6 +88,8 @@ export BLOCKSIZE=1024	# Make df / du behave reasonably
 
 # Go:
 export GOPATH=$HOME/src/go
+[ -d $GOPATH/bin ] && PATH=$PATH:$GOPATH/bin	# Add go (output) binaries
+
 
 ######################################################################
 # Special code to handle xrlogin:

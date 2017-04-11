@@ -232,13 +232,19 @@
           (lambda ()
 	    ;; Call Gofmt before saving
 	    (add-hook 'before-save-hook 'gofmt-before-save)
+
 	    ;; Customize compile command to run go build
 	    (if (not (string-match "go" compile-command))
 		(set (make-local-variable 'compile-command)
 		     "go build -v && go test -v && go vet"))
+
 	    ;; Use actual tabs, indent by four spaces:
             (setq tab-width 4)
-            (setq indent-tabs-mode 1)))
+            (setq indent-tabs-mode 1)
+
+	    ;; Godef jump key binding                                                      
+	    ; default: (local-set-key (kbd "C-cC-j") 'godef-jump)
+	    (local-set-key (kbd "M-*") 'pop-tag-mark)))
 
 ;; tell emacs where to find go source
 (setenv "GOPATH" "/Users/cpcallen/src/go")
