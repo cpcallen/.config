@@ -1,0 +1,34 @@
+# ~/.bash_login					-*- shell-script -*-
+# 
+# Executed by bash(1) for *login* shells; could also be named
+# .bash_profile or .profile
+
+# Hmm...  I'm sure there's some reason this isn't done automatically:
+[ -r ~/.bashrc ] && . ~/.bashrc
+
+# Interactive-only setup.  (This is necessary because the gdm
+# maintainers don't understand that the idea of a non-interactive
+# login shell is nonsensical.)
+interactive || return
+
+# Check for mail:
+#MAILCHECK=60
+# MAILPATH should default to something sensible
+
+# Print out motd if we're in an xterm (and thus login didn't do it for
+# us):
+[ "$TERM" = "xterm" -a -r /etc/motd ] && cat /etc/motd
+
+# Print out a silly quote:
+[ -x /usr/games/fortune ] && ( echo ; /usr/games/fortune )
+
+# Try to update configuration:
+#[ -d .config ] && (cd .config && cvs -q update -d)
+# (We can't just blindly cd; someone might have symlinked to
+# .bash_login but not .config!  I did this when using the cs251
+# course account, for example.)
+
+
+######################################################################
+# Local setup (if any):
+[ -r ~/.site-bash_login ] && . ~/.site-bash_login
