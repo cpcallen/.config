@@ -30,7 +30,8 @@
 
   ;; Set exec-path to same value used by shell on OS X:
   (when (memq window-system '(mac ns))
-    (exec-path-from-shell-initialize))
+    (if (functionp 'exec-path-from-shell-initialize)
+	(exec-path-from-shell-initialize)))
 
   )
 
