@@ -87,6 +87,9 @@ export BLOCKSIZE=1024	# Make df / du behave reasonably
 #export CVSROOT=/var/local/cvsroot
 #export CVSEDITOR=vi
 
+# Go:
+export GOPATH=$HOME/src/go
+
 ######################################################################
 # Special code to handle xrlogin:
 TERMparse="bin/TERMparse"
