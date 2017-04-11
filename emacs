@@ -240,6 +240,8 @@
             (setq tab-width 4)
             (setq indent-tabs-mode 1)))
 
+;; tell emacs where to find go source
+(setenv "GOPATH" "/Users/cpcallen/src/go")
 
 ;;; Font Lock Mode
 
