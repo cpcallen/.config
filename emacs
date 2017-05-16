@@ -240,9 +240,12 @@
 
 	    ;; Use actual tabs, indent by four spaces:
             (setq tab-width 4)
-            (setq indent-tabs-mode 1)
+            (setq indent-tabs-mode t)
 
-	    ;; Godef jump key binding                                                      
+	    ;; Go can have long lines.  Don't wrap them.
+	    (setq truncate-lines t)
+
+	    ;; Godef jump key binding
 	    ; default: (local-set-key (kbd "C-cC-j") 'godef-jump)
 	    (local-set-key (kbd "M-*") 'pop-tag-mark)))
 
@@ -349,6 +352,7 @@
      (height . 50)
      (top . 100)
      (left . 300))))
+ '(js-indent-level 2)
  '(kill-read-only-ok t)
  '(mouse-wheel-mode t nil (mwheel))
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
