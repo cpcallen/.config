@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd $HOME
+dotfiles=( $(cd .config && echo bash* emacs.d gitconfig gitignore-global) )
+
+for f in "${dotfiles[@]}" ; do
+    if [[ -L .$f ]] ; then
+	ln -sf ".config/$f" ".$f"
+    elif [[ -f .$f ]] ; then
+	echo ".$f not a symlink; skipping"
+    else
+	ln -s ".config/$f" ".$f"
+    fi
+done
