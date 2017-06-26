@@ -277,7 +277,18 @@
 ;;; JavaScript Mode
 
 (load "~/.emacs.d/google-js-style.el" 'noerror 'nomessage)
- 
+
+;;; Compile Mode
+
+;; Add NodeJS error format
+(add-to-list 'compilation-error-regexp-alist-alist
+	     '(node "^[  ]+at \\(?:[^\(\n]+ \(\\)?\\([a-zA-Z\.0-9_/-]+\\):\\([0-9]+\\):\\([0-9]+\\)\)?$"
+		    1 ;; file
+		    2 ;; line
+		    3 ;; column
+		    ))
+(add-to-list 'compilation-error-regexp-alist 'node)
+
 ;;; Font Lock Mode
 
 (global-font-lock-mode t)
