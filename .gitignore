@@ -1,5 +1,8 @@
 *~
-emacs.d/elpa
 configstore/
-git/
+emacs.d/auto-save-list/
+emacs.d/elpa/
+emacs.d/google-js-style.el
 gbackup/
+git/
+

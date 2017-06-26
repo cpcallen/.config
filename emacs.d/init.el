@@ -1,4 +1,6 @@
-;; First turn off menu and tool bars, to reduce X starup jitter
+;;;
+;;; First turn off menu and tool bars, to reduce X starup jitter
+;;;
 
 ;; Disabled since this is now taken care of by customization:
 ;; 
@@ -14,28 +16,6 @@
 ;; (set-frame-position (selected-frame) 100 0 )
 
 ;;;
-;;; Package Manager (& managed package) initialisation:
-;;;
-
-(when (>= emacs-major-version 24)
-  (require 'package)
-
-  ;; MELPA:
-  (add-to-list
-   'package-archives
-   '("melpa" . "http://melpa.org/packages/")
-   t)
-  
-  (package-initialize)
-
-  ;; Set exec-path to same value used by shell on OS X:
-  (when (memq window-system '(mac ns))
-    (if (functionp 'exec-path-from-shell-initialize)
-	(exec-path-from-shell-initialize)))
-
-  )
-
-;;;
 ;;; Local Configuration
 ;;;
 
@@ -43,8 +23,46 @@
       (append (list "~/lib/emacs")
               load-path))
 
-(load "~/.site-emacs" noerror nomessage)
-(load "~/.emacs.d/variable-tabs" noerror nomessage)
+(load "~/.site-emacs" 'noerror 'nomessage)
+(load "~/.emacs.d/variable-tabs" 'noerror 'nomessage)
+
+;;;
+;;; Package Manager (& managed package) initialisation:
+;;;
+
+(defvar required-packages
+  '(exec-path-from-shell go-mode js2-mode)
+  "A list of packages needed by cpcallen's init.el")
+
+(defun required-packages-installed-p ()
+  (cl-loop for p in required-packages
+	   when (not (package-installed-p p)) do (cl-return nil)
+	   finally (cl-return t))
+  "Check to see if all packages in required-packages are installed.")
+
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (require 'cl-lib)			; for cl-loop
+  
+  ;; MELPA:
+  (add-to-list
+   'package-archives
+   '("melpa" . "http://melpa.org/packages/")
+   t)
+  
+  ;; Initialize:
+  (package-initialize)
+  
+  ;; Update/install:
+  (unless (required-packages-installed-p)
+    ;; check for new packages (package versions)
+    (message "%s" "Updating package database...")
+    (package-refresh-contents)
+    (message "%s" " done.")
+    ;; install the missing packages
+    (dolist (p required-packages)
+      (when (not (package-installed-p p))
+	(package-install p)))))
 
 ;;;
 ;;; General Configuration
@@ -70,6 +88,7 @@
 ;; (global-set-key "\C-c\t" 'hippie-expand)
 (global-set-key "\C-cc" 'compile)
 (global-set-key "\M-3" (lambda () (interactive) (insert ?\£))) ; GBP symbol
+(global-set-key "\M-6" (lambda () (interactive) (insert ?\§))) ; section symbol
 
 
 (setq backup-by-copying-when-linked     t
@@ -94,6 +113,10 @@
 (setq-default comment-column 80
               adaptive-fill-regexp "[ 	]*\\([-|#;>*]+[ 	]*\\|(?[0-9]+[.)][ 	]*\\)*")
 
+;; Set exec-path to same value used by shell on OS X:
+(when (memq window-system '(mac ns))
+  (when (require 'exec-path-from-shell nil 'noerror)
+    (exec-path-from-shell-initialize)))
 
 ;;;
 ;;; Hook, Major-, and Minor-Mode initialization
@@ -188,17 +211,16 @@
     (c-hanging-comment-ender-p . nil)
     (indent-tabs-mode . nil)))
 
-(require 'cc-mode)
 ;(c-enable-//-in-c-mode)
 (add-hook 'c-mode-common-hook 
-	  (lambda ()
-	    (c-add-style "cpca" cpca-style t)
-	    (c-add-style "cs452" cs452-style)
-	    (c-add-style "dsl" dsl-style)))
+	  (function (lambda ()
+		      (c-add-style "cpca" cpca-style t)
+		      (c-add-style "cs452" cs452-style)
+		      (c-add-style "dsl" dsl-style))))
 	    
 (add-hook 'java-mode-hook 
-	  (lambda ()
-	    (c-set-style "dsl")))
+	  (function (lambda ()
+		      (c-set-style "dsl"))))
 
 ;;; Scheme Mode
 
@@ -229,29 +251,33 @@
 ;;; Go Mode
 
 (add-hook 'go-mode-hook
-          (lambda ()
-	    ;; Call Gofmt before saving
-	    (add-hook 'before-save-hook 'gofmt-before-save)
+          (function (lambda ()
+		      ;; Call Gofmt before saving
+		      (add-hook 'before-save-hook 'gofmt-before-save)
+		      
+		      ;; Customize compile command to run go build
+		      (if (not (string-match "go" compile-command))
+			  (set (make-local-variable 'compile-command)
+			       "go build -v && go test -v && go vet"))
+		      
+		      ;; Use actual tabs, indent by four spaces:
+		      (setq tab-width 4)
+		      (setq indent-tabs-mode nil)
+		      
+		      ;; Go can have long lines.  Don't wrap them.
+		      (setq truncate-lines t)
 
-	    ;; Customize compile command to run go build
-	    (if (not (string-match "go" compile-command))
-		(set (make-local-variable 'compile-command)
-		     "go build -v && go test -v && go vet"))
-
-	    ;; Use actual tabs, indent by four spaces:
-            (setq tab-width 4)
-            (setq indent-tabs-mode t)
-
-	    ;; Go can have long lines.  Don't wrap them.
-	    (setq truncate-lines t)
-
-	    ;; Godef jump key binding
-	    ; default: (local-set-key (kbd "C-cC-j") 'godef-jump)
-	    (local-set-key (kbd "M-*") 'pop-tag-mark)))
+		      ;; Godef jump key binding
+		      ;; default: (local-set-key (kbd "C-cC-j") 'godef-jump)
+		      (local-set-key (kbd "M-*") 'pop-tag-mark))))
 
 ;; tell emacs where to find go source
 (setenv "GOPATH" "/Users/cpcallen/src/go")
 
+;;; JavaScript Mode
+
+(load "~/.emacs.d/google-js-style.el" 'noerror 'nomessage)
+ 
 ;;; Font Lock Mode
 
 (global-font-lock-mode t)
@@ -288,7 +314,7 @@
 
 		;; Various source code extensions:
 		("\\.st$" . smalltalk-mode)
-;                ("\\.pl$" . perl-mode)
+		;; ("\\.pl$" . perl-mode)
                 ("\\.S$" . asm-mode)
 		("\\.m$" . indented-text-mode)
 		("\\.i$" . intercal-mode)
@@ -332,12 +358,17 @@
 ; (global-set-key [C-mouse-4] 'down-a-lot)
 ; (global-set-key [C-mouse-5] 'up-a-lot)
 
-;; Enabled commands and customized settings:
+
+;;;
+;;; Customized / auto-added settings
+;;;
+
 (put 'eval-expression 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'erase-buffer 'disabled nil)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -352,14 +383,17 @@
      (height . 50)
      (top . 100)
      (left . 300))))
+ '(js-expr-indent-offset 2)
  '(js-indent-level 2)
+ '(js-switch-indent-offset 2)
  '(kill-read-only-ok t)
  '(mouse-wheel-mode t nil (mwheel))
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
- '(package-selected-packages (quote (exec-path-from-shell go-mode)))
+ '(package-selected-packages (quote (js2-mode exec-path-from-shell go-mode)))
  '(search-whitespace-regexp nil)
  '(tex-default-mode (quote latex-mode))
  '(tool-bar-mode nil))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
