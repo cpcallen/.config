@@ -278,16 +278,24 @@
 
 (load "~/.emacs.d/google-js-style.el" 'noerror 'nomessage)
 
+(add-hook 'js-mode-hook
+	  (function (lambda ()
+		      (setq indent-tabs-mode nil))))
+
+(add-hook 'js-mode-hook #'js2-minor-mode)
+
 ;;; Compile Mode
 
-;; Add NodeJS error format
-(add-to-list 'compilation-error-regexp-alist-alist
-	     '(node "^[  ]+at \\(?:[^\(\n]+ \(\\)?\\([a-zA-Z\.0-9_/-]+\\):\\([0-9]+\\):\\([0-9]+\\)\)?$"
-		    1 ;; file
-		    2 ;; line
-		    3 ;; column
-		    ))
-(add-to-list 'compilation-error-regexp-alist 'node)
+(add-hook 'compilation-mode-hook
+	  (function (lambda ()
+		      ;; Add NodeJS error format
+		      (add-to-list 'compilation-error-regexp-alist-alist
+				   '(node "^[  ]+at \\(?:[^\(\n]+ \(\\)?\\([a-zA-Z\.0-9_/-]+\\):\\([0-9]+\\):\\([0-9]+\\)\)?$"
+					  1 ;; file
+					  2 ;; line
+					  3 ;; column
+					  ))
+		      (add-to-list 'compilation-error-regexp-alist 'node))))
 
 ;;; Font Lock Mode
 
