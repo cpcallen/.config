@@ -93,21 +93,23 @@
 
 (setq backup-by-copying-when-linked     t
       backup-by-copying-when-mismatch   t
-;      baud-rate                         2400
-;      ; For Waterloo, ON:
-;      calendar-latitude                 43.4555555555
-;      calendar-longitude                -80.5436111110
-;      compile-command			"nmake"
-;      default-tab-width			8
-;      inferior-lisp-program 		"clisp"
+;;      baud-rate                         2400
+      ;; For Waterloo, ON:
+;;      calendar-latitude                 43.4555555555
+;;      calendar-longitude                -80.5436111110
+;;      compile-command			"nmake"
+;;      default-tab-width			8
+;;      inferior-lisp-program 		"clisp"
       kill-read-only-ok			t
-;      lpr-command                       "lpr"
-;      lpr-switches                      '("-Pljp_3016")
+;;      lpr-command                       "lpr"
+;;      lpr-switches                      '("-Pljp_3016")
       mpuz-silent                       t
-;      prolog-program-name		"pl"
+;;      prolog-program-name		"pl"
       query-replace-highlight           t
-;      scheme-program-name		"scm"
+;;      scheme-program-name		"scm"
       vc-follow-symlinks		t
+      ;; default to unified diffs
+;;      diff-switches "-u"
       )
 
 (setq-default comment-column 80
