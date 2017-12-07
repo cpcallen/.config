@@ -1,0 +1,17 @@
+# To override [user] (or any other) settings locally, create a
+# ~/.gitconfig file with appropriate entries in it.
+#
+# (Originally there was an [include] directive for ~/.site-gitconfig,
+# but it turns out that git will look in both ~/.config/git/config AND
+# ~/.gitconfig, so we use the latter as the "site" config file.)
+
+[user]
+	name = Christopher Allen
+	email = cpcallen+git@gmail.com
+[credential]
+	helper = osxkeychain
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

@@ -1,13 +1,15 @@
 #!/bin/bash
 
 cd $HOME
-dotfiles=( $(cd .config && echo bash* emacs.d gitconfig gitignore-global) )
+dotfiles=( $(cd .config && echo bash* emacs.d) )
 
 for f in "${dotfiles[@]}" ; do
     if [[ -L .$f ]] ; then
 	ln -sf ".config/$f" ".$f"
     elif [[ -f .$f ]] ; then
-	echo ".$f not a symlink; skipping"
+	echo ".$f is a plain file, not a symlink; skipping"
+    elif [[ -d .$f ]] ; then
+	echo ".$f is a directory, not a symlink; skipping"
     else
 	ln -s ".config/$f" ".$f"
     fi

@@ -1,7 +1,0 @@
-[user]
-	name = Christopher Allen
-	email = cpcallen+git@google.com
-[credential]
-	helper = osxkeychain
-[core]
-	excludesfile = /Users/cpcallen/.gitignore-global
