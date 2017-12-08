@@ -90,6 +90,11 @@ export BLOCKSIZE=1024	# Make df / du behave reasonably
 export GOPATH=$HOME/src/go
 [ -d $GOPATH/bin ] && PATH=$PATH:$GOPATH/bin	# Add go (output) binaries
 
+# Python (pyenv and virtualenv):
+if [[ $(type -P pyenv) ]] ; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
 
 ######################################################################
 # Special code to handle xrlogin:
