@@ -417,6 +417,7 @@
  '(mouse-wheel-mode t nil (mwheel))
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
  '(package-selected-packages (quote (js2-mode exec-path-from-shell go-mode)))
+ '(scroll-bar-mode (quote left))
  '(search-whitespace-regexp nil)
  '(tex-default-mode (quote latex-mode))
  '(tool-bar-mode nil))
