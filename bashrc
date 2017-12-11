@@ -93,7 +93,9 @@ export GOPATH=$HOME/src/go
 # Python (pyenv and virtualenv):
 if [[ $(type -P pyenv) ]] ; then
     eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
+    if pyenv commands |grep -q virtualenv ; then
+	eval "$(pyenv virtualenv-init -)"
+    fi
 fi
 
 ######################################################################
