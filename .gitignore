@@ -8,3 +8,5 @@ gbackup/
 gmic/
 gtk-2.0/
 inkscape/
+
+emacs.d/tramp
