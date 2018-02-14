@@ -86,7 +86,7 @@
 
 ;; Other Preferences:
 ;; (global-set-key "\C-c\t" 'hippie-expand)
-(global-set-key "\C-cc" 'compile)
+(global-set-key "\C-c\C-c" 'compile)
 (global-set-key "\M-3" (lambda () (interactive) (insert ?\£))) ; GBP symbol
 (global-set-key "\M-6" (lambda () (interactive) (insert ?\§))) ; section symbol
 
