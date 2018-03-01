@@ -1,1 +1,5 @@
+# Use C-\ instead of C-a as escape key:
 escape ^|^|
+
+# Enable mouse scrolling and scroll bar history scrolling:
+termcapinfo xterm* ti@:te@
