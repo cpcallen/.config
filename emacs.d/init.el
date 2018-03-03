@@ -35,10 +35,10 @@
   "A list of packages needed by cpcallen's init.el")
 
 (defun required-packages-installed-p ()
+  "Check to see if all packages in required-packages are installed."
   (cl-loop for p in required-packages
 	   when (not (package-installed-p p)) do (cl-return nil)
-	   finally (cl-return t))
-  "Check to see if all packages in required-packages are installed.")
+	   finally (cl-return t)))
 
 (when (>= emacs-major-version 24)
   (require 'package)
