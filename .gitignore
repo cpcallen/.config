@@ -2,7 +2,7 @@
 configstore/
 emacs.d/auto-save-list/
 emacs.d/elpa/
-emacs.d/google-js-style.el
+emacs.d/google-*
 fontforge/
 gbackup/
 gmic/
@@ -10,3 +10,4 @@ gtk-2.0/
 inkscape/
 
 emacs.d/tramp
+emacs.d/bookmarks
