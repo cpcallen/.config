@@ -359,11 +359,10 @@
 ;;; End Of Mode-Specific Configuration
 ;;;
 
-(if (boundp 'x-display-name)		; Only start servers if running under X
-    (progn
-      (if (fboundp 'gnuserv-start)
-	  (gnuserv-start))
-      (server-start)))
+(when window-system	       ; Only start servers if running under X
+  (if (fboundp 'gnuserv-start)
+      (gnuserv-start))
+  (server-start))
 
 ;; Save/restore emacs state.
 (load "desktop")
