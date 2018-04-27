@@ -323,8 +323,10 @@
 ;        (font-lock-type-face nil nil t nil t)
 ;        (font-lock-reference-face nil nil t nil t)))
 
-;;; Show Paren Mode
+;;; Line Number Mode
+(line-number-mode t)
 
+;;; Show Paren Mode
 ;; Fun, but not *that* much fun.
 ;; (show-paren-mode)
 
@@ -357,7 +359,6 @@
 ;;; End Of Mode-Specific Configuration
 ;;;
 
-(line-number-mode t)
 (if (boundp 'x-display-name)		; Only start servers if running under X
     (progn
       (if (fboundp 'gnuserv-start)
