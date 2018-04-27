@@ -87,9 +87,12 @@
 ;; Other Preferences:
 ;; (global-set-key "\C-c\t" 'hippie-expand)
 (global-set-key "\C-c\C-c" 'compile)
-(global-set-key "\M-3" (lambda () (interactive) (insert ?\£))) ; GBP symbol
-(global-set-key "\M-6" (lambda () (interactive) (insert ?\§))) ; section symbol
+(global-set-key "\M-3" (lambda () (interactive) (insert ?\Â£))) ; GBP symbol
+(global-set-key "\M-6" (lambda () (interactive) (insert ?\Â§))) ; section symbol
 
+;; Confirm quit when running in a window:
+(when window-system
+  (setq confirm-kill-emacs 'yes-or-no-p))
 
 (setq backup-by-copying-when-linked     t
       backup-by-copying-when-mismatch   t
