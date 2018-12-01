@@ -1,13 +1,14 @@
 *~
 configstore/
+emacs.d/.emacs.desktop*
 emacs.d/auto-save-list/
+emacs.d/bookmarks
 emacs.d/elpa/
 emacs.d/google-*
+emacs.d/tramp
 fontforge/
 gbackup/
+gcloud/
 gmic/
 gtk-2.0/
 inkscape/
-
-emacs.d/tramp
-emacs.d/bookmarks
