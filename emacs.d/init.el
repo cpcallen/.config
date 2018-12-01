@@ -366,8 +366,6 @@
 
 ;; Save/restore emacs state.
 (load "desktop")
-(desktop-load-default)
-(desktop-read)
 
 ;;; Mouse wheel support.
 (if (< emacs-major-version 21)
@@ -406,6 +404,8 @@
  ;; If there is more than one, they won't work right.
  '(bbdb-csv-export-type (quote outlook))
  '(bbdb-vcard-export-dir "~/")
+ '(desktop-restore-in-current-display nil)
+ '(desktop-save-mode t)
  '(inhibit-startup-screen t)
  '(initial-frame-alist
    (quote
