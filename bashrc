@@ -180,8 +180,8 @@ if interactive ; then
     function xtermtitle () { echo -e "\e]0;$@\007" ; }
 
     # Fetch photos from android phone:
-    alias get-a='get -vs A -S /Volumes/GPHONE\ 32GB'
-    alias compare-a='compare -vS /Volumes/GPHONE\ 32GB'
+    alias get-a='get -vs A -S "$HOME/Pixel/Internal shared storage"'
+    alias compare-a='compare -vS "$HOME/Pixel/Internal shared storage"'
     alias get-tmp='get -vW $HOME/Pictures/src-tmp'
 fi
 
