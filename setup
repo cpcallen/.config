@@ -5,7 +5,7 @@ dotfiles=( $(cd .config && echo bash* emacs.d screenrc) )
 
 for f in "${dotfiles[@]}" ; do
     if [[ -L .$f ]] ; then
-	ln -sf ".config/$f" ".$f"
+        rm -f ".$f" && ln -sf ".config/$f" ".$f"
     elif [[ -f .$f ]] ; then
 	echo ".$f is a plain file, not a symlink; skipping"
     elif [[ -d .$f ]] ; then
