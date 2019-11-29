@@ -65,7 +65,7 @@ export PAGER=less
 if [[ -x $HOME/bin/emacs-nw ]] ; then
     export VISUAL=emacs-nw
 else
-    export VISUAL="emacs -nw"
+    export VISUAL="emacs -nw --no-desktop"
 fi
 export EDITOR="$VISUAL"
 
