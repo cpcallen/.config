@@ -3,13 +3,13 @@
 ;;;
 
 ;; Disabled since this is now taken care of by customization:
-;; 
+;;
 ;; ;; Turn off menu and toolbars, blinking cursor
 ;; (menu-bar-mode -1)
 ;; (if (>= emacs-major-version 21)
 ;;     (progn (tool-bar-mode -1)
 ;; 	   (blink-cursor-mode -1)))
-;; 
+;;
 ;; ;; Nice big window.
 ;; (set-frame-height (selected-frame) 40)
 ;; (set-frame-width (selected-frame) 80)
@@ -43,16 +43,16 @@
 (when (>= emacs-major-version 24)
   (require 'package)
   (require 'cl-lib)			; for cl-loop
-  
+
   ;; MELPA:
   (add-to-list
    'package-archives
    '("melpa" . "http://melpa.org/packages/")
    t)
-  
+
   ;; Initialize:
   (package-initialize)
-  
+
   ;; Update/install:
   (unless (required-packages-installed-p)
     ;; check for new packages (package versions)
@@ -219,13 +219,13 @@
     (indent-tabs-mode . nil)))
 
 ;(c-enable-//-in-c-mode)
-(add-hook 'c-mode-common-hook 
+(add-hook 'c-mode-common-hook
 	  (function (lambda ()
 		      (c-add-style "cpca" cpca-style t)
 		      (c-add-style "cs452" cs452-style)
 		      (c-add-style "dsl" dsl-style))))
-	    
-(add-hook 'java-mode-hook 
+
+(add-hook 'java-mode-hook
 	  (function (lambda ()
 		      (c-set-style "dsl"))))
 
@@ -261,16 +261,16 @@
           (function (lambda ()
 		      ;; Call Gofmt before saving
 		      (add-hook 'before-save-hook 'gofmt-before-save)
-		      
+
 		      ;; Customize compile command to run go build
 		      (if (not (string-match "go" compile-command))
 			  (set (make-local-variable 'compile-command)
 			       "go build -v && go test -v && go vet"))
-		      
+
 		      ;; Use actual tabs, indent by four spaces:
 		      (setq tab-width 4)
 		      (setq indent-tabs-mode nil)
-		      
+
 		      ;; Go can have long lines.  Don't wrap them.
 		      (setq truncate-lines t)
 
