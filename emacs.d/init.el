@@ -89,6 +89,8 @@
 (global-set-key "\C-c\C-c" 'compile)
 (global-set-key "\M-3" (lambda () (interactive) (insert ?\£))) ; GBP symbol
 (global-set-key "\M-6" (lambda () (interactive) (insert ?\§))) ; section symbol
+(global-set-key "\M-_" (lambda () (interactive) (insert ?\—))) ; em dash
+(global-set-key "\M--" (lambda () (interactive) (insert ?\–))) ; en dash
 
 ;; Confirm quit when running in a window:
 (when window-system
