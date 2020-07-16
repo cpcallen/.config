@@ -289,6 +289,12 @@
 
 (add-hook 'js-mode-hook #'js2-minor-mode)
 
+;;; Markdown Mode
+
+(add-hook 'markdown-mode-hook
+	  (function (lambda ()
+		      (setq indent-tabs-mode nil))))
+
 ;;; Compile Mode
 
 (add-hook 'compilation-mode-hook
@@ -419,7 +425,9 @@
  '(kill-read-only-ok t)
  '(mouse-wheel-mode t nil (mwheel))
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
- '(package-selected-packages (quote (js2-mode exec-path-from-shell go-mode)))
+ '(package-selected-packages
+   (quote
+    (exec-path-from-shell go-mode js2-mode markdown-mode typo)))
  '(scroll-bar-mode (quote left))
  '(search-whitespace-regexp nil)
  '(tex-default-mode (quote latex-mode))
