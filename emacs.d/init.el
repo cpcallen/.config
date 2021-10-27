@@ -255,7 +255,7 @@
 (autoload 'intercal-mode "intercal")
 
 
-;;; Go Mode
+;;; Go Mode (golang)
 
 (add-hook 'go-mode-hook
           (function (lambda ()
@@ -413,6 +413,7 @@
  '(bbdb-csv-export-type 'outlook)
  '(bbdb-vcard-export-dir "~/")
  '(desktop-restore-in-current-display nil)
+ '(desktop-restore-reuses-frames nil)
  '(desktop-save-mode t)
  '(inhibit-startup-screen t)
  '(initial-frame-alist '((width . 132) (height . 50) (top . 100) (left . 300)))
@@ -420,6 +421,7 @@
  '(js-indent-level 2)
  '(js-switch-indent-offset 2)
  '(kill-read-only-ok t)
+ '(line-move-visual nil)
  '(mouse-wheel-mode t nil (mwheel))
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(package-selected-packages '(exec-path-from-shell go-mode js2-mode markdown-mode typo))
