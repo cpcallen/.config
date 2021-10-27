@@ -410,29 +410,22 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(bbdb-csv-export-type (quote outlook))
+ '(bbdb-csv-export-type 'outlook)
  '(bbdb-vcard-export-dir "~/")
  '(desktop-restore-in-current-display nil)
  '(desktop-save-mode t)
  '(inhibit-startup-screen t)
- '(initial-frame-alist
-   (quote
-    ((width . 132)
-     (height . 50)
-     (top . 100)
-     (left . 300))))
+ '(initial-frame-alist '((width . 132) (height . 50) (top . 100) (left . 300)))
  '(js-expr-indent-offset 2)
  '(js-indent-level 2)
  '(js-switch-indent-offset 2)
  '(kill-read-only-ok t)
  '(mouse-wheel-mode t nil (mwheel))
- '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
- '(package-selected-packages
-   (quote
-    (exec-path-from-shell go-mode js2-mode markdown-mode typo)))
- '(scroll-bar-mode (quote left))
+ '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
+ '(package-selected-packages '(exec-path-from-shell go-mode js2-mode markdown-mode typo))
+ '(scroll-bar-mode 'left)
  '(search-whitespace-regexp nil)
- '(tex-default-mode (quote latex-mode))
+ '(tex-default-mode 'latex-mode)
  '(tool-bar-mode nil))
 
 (custom-set-faces
