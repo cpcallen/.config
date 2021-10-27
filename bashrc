@@ -86,7 +86,7 @@ export BLOCKSIZE=1024	# Make df / du behave reasonably
 #export CVSROOT=/var/local/cvsroot
 #export CVSEDITOR=vi
 
-# Go:
+# Go (golang):
 export GOPATH=$HOME/src/go
 [ -d $GOPATH/bin ] && PATH=$PATH:$GOPATH/bin	# Add go (output) binaries
 
@@ -145,8 +145,12 @@ if interactive ; then
     HISTCONTROL=ignoredups
 
     # Enable programmable completion features:
-    if [ -r /etc/bash_completion ]; then
-	. /etc/bash_completion
+    if ! shopt -oq posix; then
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+	    . /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+	    . /etc/bash_completion
+	fi
     fi
 
     ########################################
