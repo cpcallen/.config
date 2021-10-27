@@ -8,3 +8,5 @@
 [user]
 	name = Christopher Allen
 	email = cpcallen+git@gmail.com
+[push]
+	default = upstream
