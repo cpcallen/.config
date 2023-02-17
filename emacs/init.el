@@ -19,12 +19,11 @@
 ;;; Local Configuration
 ;;;
 
-(setq load-path
-      (append (list "~/lib/emacs")
-              load-path))
+(add-to-list 'load-path "~/lib/emacs")
+(add-to-list 'load-path (concat user-emacs-directory "lisp"))
 
 (load "~/.site-emacs" 'noerror 'nomessage)
-(load "~/.emacs.d/variable-tabs" 'noerror 'nomessage)
+(load "variable-tabs")
 
 ;;;
 ;;; Package Manager (& managed package) initialisation:
