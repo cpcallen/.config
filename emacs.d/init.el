@@ -31,7 +31,7 @@
 ;;;
 
 (defvar required-packages
-  '(exec-path-from-shell go-mode js2-mode)
+  '(exec-path-from-shell go-mode js2-mode xterm-color)
   "A list of packages needed by cpcallen's init.el")
 
 (defun required-packages-installed-p ()
@@ -316,6 +316,23 @@
   (add-to-list 'compilation-error-regexp-alist 'node)
   (add-to-list 'compilation-error-regexp-alist 'node-syn))
 (add-hook 'compilation-mode-hook 'my-recognise-node-errors)
+
+;; Handle ANSI colour escape sequences.
+
+;; Version from https://stackoverflow.com/questions/13397737
+;; seems to fail with error "Marker does not point anywhere".
+;;
+;; (when (require 'ansi-color nil t)
+;;   (defun my/colourise-compile-buffer ()
+;;     (ansi-color-apply-on-region compilation-filter-start (point)))
+;;   (add-hook 'compilation-mode-hook 'my/colourise-compile-buffer))
+
+;; Version from https://stackoverflow.com/questions/3072648#63710493
+(when (require 'xterm-color nil t)
+  (setq compilation-environment '("TERM=xterm-256color"))
+  (defun my/advice-compilation-filter (f proc string)
+    (funcall f proc (xterm-color-filter string)))
+  (advice-add 'compilation-filter :around #'my/advice-compilation-filter))
 
 ;;; Font Lock Mode
 
