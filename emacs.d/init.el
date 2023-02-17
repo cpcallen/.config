@@ -283,8 +283,6 @@
 
 ;;; JavaScript Mode
 
-(load "~/.emacs.d/google-js-style.el" 'noerror 'nomessage)
-
 (add-hook 'js-mode-hook
 	  (function (lambda ()
 		      (setq indent-tabs-mode nil))))

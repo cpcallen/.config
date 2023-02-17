@@ -4,7 +4,6 @@ emacs.d/.emacs.desktop*
 emacs.d/auto-save-list/
 emacs.d/bookmarks
 emacs.d/elpa/
-emacs.d/google-*
 emacs.d/tramp
 fontforge/
 gbackup/
