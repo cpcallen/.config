@@ -299,22 +299,23 @@
 
 ;;; Compile Mode
 
-(add-hook 'compilation-mode-hook
-	  (function (lambda ()
-		      ;; Add NodeJS error formats for stack traces & SyntaxError
-		      (add-to-list 'compilation-error-regexp-alist-alist
-				   '(node "^[  ]+at \\(?:[^\(\n]+ \(\\)?\\([a-zA-Z\.0-9_/-]+\\):\\([0-9]+\\):\\([0-9]+\\)\)?$"
-					  1 ;; file
-					  2 ;; line
-					  3 ;; column
-					  ))
-		      (add-to-list 'compilation-error-regexp-alist-alist
-				   '(node-syn "^\\(/[^:]+\\):\\([0-9]+\\)\)?$"
-					  1 ;; file
-					  2 ;; line
-					  ))
-		      (add-to-list 'compilation-error-regexp-alist 'node)
-		      (add-to-list 'compilation-error-regexp-alist 'node-syn))))
+;; Add NodeJS error formats for stack traces & SyntaxError; see
+;; https://benhollis.net/blog/2015/12/20/nodejs-stack-traces-in-emacs-compilation-mode/
+(defun my-recognise-node-errors ()
+  (add-to-list 'compilation-error-regexp-alist-alist
+	       '(node "^[  ]+at \\(?:[^\(\n]+ \(\\)?\\([a-zA-Z\.0-9_/-]+\\):\\([0-9]+\\):\\([0-9]+\\)\)?$"
+		      1 ;; file
+		      2 ;; line
+		      3 ;; column
+		      ))
+  (add-to-list 'compilation-error-regexp-alist-alist
+	       '(node-syn "^\\(/[^:]+\\):\\([0-9]+\\)\)?$"
+			  1 ;; file
+			  2 ;; line
+			  ))
+  (add-to-list 'compilation-error-regexp-alist 'node)
+  (add-to-list 'compilation-error-regexp-alist 'node-syn))
+(add-hook 'compilation-mode-hook 'my-recognise-node-errors)
 
 ;;; Font Lock Mode
 
