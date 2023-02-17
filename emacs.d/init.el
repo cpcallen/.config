@@ -369,6 +369,7 @@
 		("^/tmp/SLRN" . text-mode)
 
 		;; Various source code extensions:
+		("\\.mjs$" . javascript-mode)
 		("\\.st$" . smalltalk-mode)
 		;; ("\\.pl$" . perl-mode)
                 ("\\.S$" . asm-mode)
@@ -438,6 +439,7 @@
  '(js-switch-indent-offset 2)
  '(kill-read-only-ok t)
  '(line-move-visual nil)
+ '(line-number-display-limit-width 512)
  '(mouse-wheel-mode t nil (mwheel))
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(package-selected-packages '(exec-path-from-shell go-mode js2-mode markdown-mode typo))
