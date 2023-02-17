@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd $HOME
-dotfiles=( $(cd .config && echo bash* emacs.d screenrc) )
+dotfiles=( $(cd .config && echo bash* screenrc) )
 
 for f in "${dotfiles[@]}" ; do
     if [[ -L .$f ]] ; then

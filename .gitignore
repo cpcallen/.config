@@ -1,10 +1,10 @@
 *~
 configstore/
-emacs.d/.emacs.desktop*
-emacs.d/auto-save-list/
-emacs.d/bookmarks
-emacs.d/elpa/
-emacs.d/tramp
+emacs/.emacs.desktop*
+emacs/auto-save-list/
+emacs/bookmarks
+emacs/elpa/
+emacs/tramp
 fontforge/
 gbackup/
 gcloud/
