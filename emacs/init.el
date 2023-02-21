@@ -389,7 +389,7 @@
   (server-start))
 
 ;; Save/restore emacs state.
-(load "desktop")
+(require 'desktop)
 
 ;;; Mouse wheel support.
 (if (< emacs-major-version 21)
@@ -441,7 +441,9 @@
  '(line-number-display-limit-width 512)
  '(mouse-wheel-mode t nil (mwheel))
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
- '(package-selected-packages '(exec-path-from-shell go-mode js2-mode markdown-mode typo))
+ '(package-archive-priorities '(("gnu" . 2) ("nongnu" . 1)))
+ '(package-selected-packages
+   '(markdown-mode exec-path-from-shell go-mode xterm-color typo))
  '(scroll-bar-mode 'left)
  '(search-whitespace-regexp nil)
  '(tex-default-mode 'latex-mode)
