@@ -91,33 +91,21 @@
 (global-set-key "\M-_" (lambda () (interactive) (insert ?\—))) ; em dash
 (global-set-key "\M--" (lambda () (interactive) (insert ?\–))) ; en dash
 
-;; Confirm quit when running in a window:
-(when window-system
-  (setq confirm-kill-emacs 'yes-or-no-p))
+;; (setq baud-rate                         2400
+      ;; ;; For Waterloo, ON:
+      ;; calendar-latitude                 43.4555555555
+      ;; calendar-longitude                -80.5436111110
+      ;; compile-command			"nmake"
+      ;; default-tab-width			8
+      ;; inferior-lisp-program 		"clisp"
+      ;; lpr-command                       "lpr"
+      ;; lpr-switches                      '("-Pljp_3016")
+      ;; prolog-program-name		"pl"
+      ;; scheme-program-name		"scm"
+      ;; )
 
-(setq backup-by-copying-when-linked     t
-      backup-by-copying-when-mismatch   t
-;;      baud-rate                         2400
-      ;; For Waterloo, ON:
-;;      calendar-latitude                 43.4555555555
-;;      calendar-longitude                -80.5436111110
-;;      compile-command			"nmake"
-;;      default-tab-width			8
-;;      inferior-lisp-program 		"clisp"
-      kill-read-only-ok			t
-;;      lpr-command                       "lpr"
-;;      lpr-switches                      '("-Pljp_3016")
-      mpuz-silent                       t
-;;      prolog-program-name		"pl"
-      query-replace-highlight           t
-;;      scheme-program-name		"scm"
-      vc-follow-symlinks		t
-      ;; default to unified diffs
-;;      diff-switches "-u"
-      )
-
-(setq-default comment-column 80
-              adaptive-fill-regexp "[ 	]*\\([-|#;>*]+[ 	]*\\|(?[0-9]+[.)][ 	]*\\)*")
+;; (setq-default adaptive-fill-regexp
+;;	      "[ 	]*\\([-|#;>*]+[ 	]*\\|(?[0-9]+[.)][ 	]*\\)*")
 
 ;; Set exec-path to same value used by shell on OS X:
 (when (memq window-system '(mac ns))
@@ -287,6 +275,7 @@
 		      (setq indent-tabs-mode nil))))
 
 (add-hook 'js-mode-hook #'js2-minor-mode)
+(add-to-list 'interpreter-mode-alist '("node" . js-mode))
 
 ;;; Markdown Mode
 
@@ -331,27 +320,20 @@
     (funcall f proc (xterm-color-filter string)))
   (advice-add 'compilation-filter :around #'my/advice-compilation-filter))
 
+
 ;;; Font Lock Mode
 
-(global-font-lock-mode t)
-(setq font-lock-maximum-decoration t
-      lazy-lock-defer-time 0.75)
+(setq lazy-lock-defer-time 0.75)
 
-;(setq font-lock-face-attributes
-;      '((font-lock-comment-face nil nil nil t nil)
-;        (font-lock-string-face nil nil nil nil t)
-;        (font-lock-keyword-face nil nil t nil nil)
-;        (font-lock-function-name-face "white" "black" t nil nil)
-;        (font-lock-variable-name-face nil nil t t nil)
-;        (font-lock-type-face nil nil t nil t)
-;        (font-lock-reference-face nil nil t nil t)))
+;;(setq font-lock-face-attributes
+;;      '((font-lock-comment-face nil nil nil t nil)
+;;        (font-lock-string-face nil nil nil nil t)
+;;        (font-lock-keyword-face nil nil t nil nil)
+;;        (font-lock-function-name-face "white" "black" t nil nil)
+;;        (font-lock-variable-name-face nil nil t t nil)
+;;        (font-lock-type-face nil nil t nil t)
+;;        (font-lock-reference-face nil nil t nil t)))
 
-;;; Line Number Mode
-(line-number-mode t)
-
-;;; Show Paren Mode
-;; Fun, but not *that* much fun.
-;; (show-paren-mode)
 
 ;;; Auto Mode Alist:
 
@@ -383,15 +365,16 @@
 ;;; End Of Mode-Specific Configuration
 ;;;
 
-(when window-system	       ; Only start servers if running under X
-  (if (fboundp 'gnuserv-start)
-      (gnuserv-start))
-  (server-start))
+;; Things to do when running under X / macOS etc. and NOT --no-window-system:
+(when window-system
+  ;; Confirm quit:
+  (setq confirm-kill-emacs 'yes-or-no-p)
+  ;; Start server:
+  (server-start)
+  ;; Restore (and later save) desktop:
+  (desktop-save-mode t))
 
-;; Save/restore emacs state.
-(require 'desktop)
-
-;;; Mouse wheel support.
+;;; Mouse wheel support for old versions of emacs:
 (if (< emacs-major-version 21)
     (progn
       (defun up-slightly () (interactive) (scroll-up 5))
@@ -426,11 +409,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(backup-by-copying-when-linked t)
+ '(backup-by-copying-when-mismatch t)
  '(bbdb-csv-export-type 'outlook)
  '(bbdb-vcard-export-dir "~/")
+ '(comment-column 80)
+ '(compilation-search-path '(nil "~/src/blockly" "~/src/blockly-samples"))
+ '(desktop-load-locked-desktop 'check-pid)
+ '(desktop-restore-eager 10)
  '(desktop-restore-in-current-display nil)
  '(desktop-restore-reuses-frames nil)
- '(desktop-save-mode t)
+ '(font-lock-maximum-decoration t)
+ '(global-font-lock-mode t)
  '(inhibit-startup-screen t)
  '(initial-frame-alist '((width . 132) (height . 50) (top . 100) (left . 300)))
  '(js-expr-indent-offset 2)
@@ -439,15 +429,19 @@
  '(kill-read-only-ok t)
  '(line-move-visual nil)
  '(line-number-display-limit-width 512)
+ '(line-number-mode t)
  '(mouse-wheel-mode t nil (mwheel))
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(package-archive-priorities '(("gnu" . 2) ("nongnu" . 1)))
  '(package-selected-packages
    '(markdown-mode exec-path-from-shell go-mode xterm-color typo))
+ '(query-replace-highlight t)
  '(scroll-bar-mode 'left)
  '(search-whitespace-regexp nil)
+ '(split-height-threshold nil)
  '(tex-default-mode 'latex-mode)
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(vc-follow-symlinks t))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
